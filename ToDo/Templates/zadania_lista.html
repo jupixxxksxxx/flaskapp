@@ -1,0 +1,45 @@
+<!-- todo/templates/zadania_lista.html -->
+{% extends "szkielet.html" %}
+{% block tytul %}{{ config.SITE_NAME }}{% endblock%}
+
+{% block h1 %}Moje zadania{% endblock %}
+
+{% block tresc %}
+    <!-- formularz dodawania zadania -->
+    <form class="add-form" method="POST" action="{{ url_for('zadania') }}">
+      <div class="form-group form-inline">
+        <label for="zadanie" class="p-2">Treść zadania</label>
+        <input id="zadanie" name="zadanie" required value="" class="form-control p-2">
+        <button type="submit" class="btn btn-primary m-2">Dodaj zadanie</button>
+      </div>
+    </form>
+
+    <ol class="list-group">
+      <!-- wypisujemy kolejno wszystkie zdania -->
+      {% for zadanie in zadania %}
+        <li class="list-group-item">
+          <div class="d-flex flex-row">
+          <!-- wyróżnienie zadań zakończonych -->
+          {% if zadanie.zrobione %}
+            <span class="done p-2">{{ zadanie.zadanie }} – <em>{{ zadanie.data_pub }}</em></span>
+          {% else %}
+            {{ zadanie.zadanie }} – <em>{{ zadanie.data_pub }}</em>
+          {% endif %}
+
+          <!-- formularz zmiany statusu zadania -->
+          {% if not zadanie.zrobione %}
+            <form method="POST" action="{{ url_for('zrobione') }}" class="p-2">
+              <!-- wysyłamy jedynie informacje o id zadania -->
+              <input type="hidden" name="id" value="{{ zadanie.id }}">
+              <button type="submit" class="btn btn-primary">Wykonane</button>
+            </form>
+          {% endif %}
+            <form method="POST" action="{{ url_for('usun') }}" class="p-2">
+              <input type="hidden" name="id" value="{{ zadanie.id }}">
+              <button type="submit" class="btn btn-primary">Usuń</button>
+            </form>
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+{% endblock %}

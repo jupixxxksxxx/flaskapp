@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+	
+<html>
+  <head>
+    <title>Twój Wynik</title>
+  </head>
+<body>
+  <h1>Twój Wynik</h1>
+</body>
+</html>
+<p>
+	{% for message in get_flashed_messages() %}
+	  {{ message }}
+	{% endfor %}
+</p>
+<form method="POST">
+	{% for p in pytania %}
+		<p>
+		{% set pnr = loop.index0 %}
+		{% for o in p.odpowiedzi %}
+			{% endfor %}
+		</p>
+	{% endfor %}
+
+
+    <a href="{{ url_for('index') }}"><button type = 'button' >Powrót do pytań</button></a>
+</form>

@@ -1,0 +1,9 @@
+<!-- quiz/templates/index.html -->
+{% extends "szkielet.html" %}
+{% block tytul %}Lista zadań{% endblock%}
+
+{% block h1 %}Twoje zadania do wykonania{% endblock %}
+
+{% block tresc %}
+<p><a href="{{ url_for('zadania') }}">Zobacz listę zadań</a></p>
+{% endblock %}
